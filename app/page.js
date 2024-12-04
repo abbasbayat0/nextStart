@@ -1,11 +1,23 @@
-import Link from "next/link";
+"use client";
+
+import handler from "@/api/newNote";
+import { useState } from "react";
 
 export default function Home() {
+  const [state, setState] = useState();
+  const handleSubmit = () => {
+    console.log(state);
+    const obj = { title: state };
+    handler(obj);
+  };
   return (
     <div className="w-full flex justify-around">
-      <Link href="/input">form</Link>
-      <Link href="/list">list</Link>
-      <a href={`mailto:${"abbas0bayat@gmail.com"}`}>email me</a>
+      <input
+        type="text"
+        onChange={(e) => setState(e.target.value)}
+        className="shadow-lg"
+      />
+      <input type="button" value="send" onClick={handleSubmit} />
     </div>
   );
 }
